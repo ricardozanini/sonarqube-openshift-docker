@@ -1,9 +1,10 @@
-FROM jboss/base-jdk:8
+FROM redhat-openjdk-18/openjdk18-openshift
 
 MAINTAINER Erik Jacobs <erikmjacobs@gmail.com>
 MAINTAINER Siamak Sadeghianfar <siamaksade@gmail.com>
+MAINTAINER Ricardo Zanini <ricardozanini@gmail.com>
 
-ENV SONAR_VERSION=6.7 \
+ENV SONAR_VERSION=7.1 \
     SONARQUBE_HOME=/opt/sonarqube \
     SONARQUBE_JDBC_USERNAME=sonar \
     SONARQUBE_JDBC_PASSWORD=sonar \
