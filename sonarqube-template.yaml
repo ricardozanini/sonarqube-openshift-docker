@@ -49,7 +49,7 @@ objects:
         tags: sonarqube
       from:
         kind: DockerImage
-        name: ricardozanini/sonarqube:${SONARQUBE_VERSION}
+        name: ${IMAGE_NAMESPACE}/sonarqube:${SONARQUBE_VERSION}
       importPolicy: {}
       name: ${SONARQUBE_VERSION}
 - apiVersion: v1
@@ -147,6 +147,10 @@ objects:
       requests:
         storage: ${SONAR_VOLUME_CAPACITY}
 parameters:
+- displayName: Docker image namespace
+  value: "ricardozanini"
+  name: IMAGE_NAMESPACE
+  required: true
 - displayName: SonarQube version
   value: "7.1"
   name: SONARQUBE_VERSION
