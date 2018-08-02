@@ -5,7 +5,11 @@ Docker image of SonarQube.
 It is inspired by the upstream SonarQube Docker image:
 https://github.com/SonarSource/docker-sonarqube
 
-This repository is a fork of [OpenShiftDemos](https://github.com/OpenShiftDemos/sonarqube-openshift-docker), focusing in a enterprise OpenShift solution. Files here should be used as sample and inside an enterprise environment with access to [Red Hat's repository]().
+This is a fork of [OpenShiftDemos](https://github.com/OpenShiftDemos/sonarqube-openshift-docker), focusing on an enterprise OpenShift solution. The content of this repo should be referenced as a sample and inside an enterprise environment with access to [Red Hat's repository](https://access.redhat.com/containers).
+
+1. Build this image in your environment: `docker build .`
+2. Push this image to your corporate registry: `docker push`
+3. Import this image to your OpenShift installation: ``
 
 # Docker Hub
 
@@ -17,8 +21,8 @@ OpenShift:
 
 SonarQube with Embedded H2 Database:
 
-    oc new-app -f sonarqube-template.yaml --param=SONARQUBE_VERSION=6.7
+    oc new-app -f sonarqube-template.yaml --param=SONARQUBE_VERSION=7.1
 
 SonarQube with PostgreSQL Database:
 
-    oc new-app -f sonarqube-postgresql-template.yaml --param=SONARQUBE_VERSION=6.7
+    oc new-app -f sonarqube-postgresql-template.yaml --param=SONARQUBE_VERSION=7.1

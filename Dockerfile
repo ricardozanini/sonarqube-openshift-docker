@@ -1,18 +1,14 @@
 FROM redhat-openjdk-18/openjdk18-openshift
 
-MAINTAINER Erik Jacobs <erikmjacobs@gmail.com>
-MAINTAINER Siamak Sadeghianfar <siamaksade@gmail.com>
-MAINTAINER Ricardo Zanini <ricardozanini@gmail.com>
+LABEL author="Ricardo Zanini <ricardozanini@gmail.com>"
 
 ENV SONAR_VERSION=7.1 \
     SONARQUBE_HOME=/opt/sonarqube \
     SONARQUBE_JDBC_USERNAME=sonar \
     SONARQUBE_JDBC_PASSWORD=sonar \
-    SONARQUBE_JDBC_URL=
+    SONARQUBE_JDBC_URL= 
 
 USER root
-EXPOSE 9000
-ADD root /
 
 RUN set -x \
 
@@ -22,21 +18,30 @@ RUN set -x \
     # sub   2048R/06855C1D 2015-05-25
     && gpg --keyserver ha.pool.sks-keyservers.net --recv-keys F1182E81C792928921DBCAB4CFCA4A29D26468DE \
 
-    && cd /opt \
+    && cd $HOME \
     && curl -o sonarqube.zip -fSL https://sonarsource.bintray.com/Distribution/sonarqube/sonarqube-$SONAR_VERSION.zip \
     && curl -o sonarqube.zip.asc -fSL https://sonarsource.bintray.com/Distribution/sonarqube/sonarqube-$SONAR_VERSION.zip.asc \
     && gpg --batch --verify sonarqube.zip.asc sonarqube.zip \
     && unzip sonarqube.zip \
-    && mv sonarqube-$SONAR_VERSION sonarqube \
-    && rm sonarqube.zip* \
-    && rm -rf $SONARQUBE_HOME/bin/*
+    && mv sonarqube-$SONAR_VERSION ${SONARQUBE_HOME} \
+    && rm sonarqube.zip \
+    && rm -rf ${SONARQUBE_HOME}/bin/* \
+    && chown -R jboss:0 ${SONARQUBE_HOME} \
+    && chmod -R g+rw ${SONARQUBE_HOME}
+
+# Http port
+EXPOSE 9000
+
+# VOLUME "$SONARQUBE_HOME/data"
 
 WORKDIR $SONARQUBE_HOME
 COPY run.sh $SONARQUBE_HOME/bin/
 
-RUN useradd -r sonar
-RUN /usr/bin/fix-permissions $SONARQUBE_HOME \
-    && chmod 775 $SONARQUBE_HOME/bin/run.sh
+ADD root /
 
-USER sonar
-ENTRYPOINT ["./bin/run.sh"]
+RUN /usr/bin/fix-permissions $SONARQUBE_HOME \
+&& chmod +x $SONARQUBE_HOME/bin/run.sh
+
+USER jboss
+
+CMD ["./bin/run.sh"]
