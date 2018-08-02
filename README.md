@@ -7,9 +7,11 @@ https://github.com/SonarSource/docker-sonarqube
 
 This is a fork of [OpenShiftDemos](https://github.com/OpenShiftDemos/sonarqube-openshift-docker), focusing on an enterprise OpenShift solution. The content of this repo should be referenced as a sample and inside an enterprise environment with access to [Red Hat's repository](https://access.redhat.com/containers).
 
-1. Build this image in your environment: `docker build .`
-2. Push this image to your corporate registry: `docker push`
-3. Import this image to your OpenShift installation: ``
+1. Build this image in your environment: `docker build --tag <my-namespace>/sonarqube:7.1 .`
+2. Use the appropriate tags following Sonar versions: `docker tag <my-namespace>/sonarqube:7.1 <my-namespace>/sonarqube:latest`
+3. Push this image to your corporate registry: `docker push <my-namespace>/sonarqube`
+4. Import this image to your OpenShift installation: `oc import-image sonarqube --from=<my-registry>/<my-namespace>/sonarqube --confirm`
+5. Run the template (see bellow: Deploy on OpenShift).
 
 # Docker Hub
 

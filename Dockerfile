@@ -1,6 +1,13 @@
 FROM redhat-openjdk-18/openjdk18-openshift
 
-LABEL author="Ricardo Zanini <ricardozanini@gmail.com>"
+LABEL author="Ricardo Zanini <ricardozanini@gmail.com>" \
+ summary="Container image for SonarQube based on Red Hat OpenJDK base image" \
+ io.k8s.description="Container image for SonarQube based on Red Hat OpenJDK base image" \
+ io.k8s.display-name="SonarQube" \
+ url="https://hub.docker.com/r/ricardozanini/sonarqube/" \
+ name="ricardozanini/sonarqube" \
+ maintainer="Ricardo Zanini <ricardozanini@gmail.com>" \
+ usage="Reference for building your own Sonarqube image" 
 
 ENV SONAR_VERSION=7.1 \
     SONARQUBE_HOME=/opt/sonarqube \
@@ -32,16 +39,11 @@ RUN set -x \
 # Http port
 EXPOSE 9000
 
-# VOLUME "$SONARQUBE_HOME/data"
-
 WORKDIR $SONARQUBE_HOME
 COPY run.sh $SONARQUBE_HOME/bin/
 
-ADD root /
-
-RUN /usr/bin/fix-permissions $SONARQUBE_HOME \
-&& chmod +x $SONARQUBE_HOME/bin/run.sh
+RUN chmod +x $SONARQUBE_HOME/bin/run.sh
 
 USER jboss
 
-CMD ["./bin/run.sh"]
+CMD ["./bin/run.sh"]d
