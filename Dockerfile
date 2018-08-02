@@ -9,7 +9,9 @@ LABEL author="Ricardo Zanini <ricardozanini@gmail.com>" \
  maintainer="Ricardo Zanini <ricardozanini@gmail.com>" \
  usage="Reference for building your own Sonarqube image" 
 
-ENV SONAR_VERSION=7.1 \
+ARG VERSION=7.1
+
+ENV SONAR_VERSION=${VERSION} \
     SONARQUBE_HOME=/opt/sonarqube \
     SONARQUBE_JDBC_USERNAME=sonar \
     SONARQUBE_JDBC_PASSWORD=sonar \
