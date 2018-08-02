@@ -46,4 +46,4 @@ RUN chmod +x $SONARQUBE_HOME/bin/run.sh
 
 USER jboss
 
-CMD ["./bin/run.sh"]d
+CMD ["./bin/run.sh"]
