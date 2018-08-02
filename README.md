@@ -13,6 +13,10 @@ This is a fork of [OpenShiftDemos](https://github.com/OpenShiftDemos/sonarqube-o
 4. Import this image to your OpenShift installation: `oc import-image sonarqube --from=<my-registry>/<my-namespace>/sonarqube --confirm`
 5. Run the template (see bellow: Deploy on OpenShift).
 
+If you wish to build the image using a different Sonar version, run:
+
+`docker build --tag <my-namespace>/sonarqube:7.2 --build-arg VERSION=7.2 --rm .`
+
 # Docker Hub
 
 The SonarQube image is available on Docker Hub at: https://hub.docker.com/r/ricardozanini/sonarqube/
